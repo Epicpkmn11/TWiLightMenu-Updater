@@ -752,6 +752,7 @@ void updateSelf(bool nightly) {
 		ini.SaveIniFile("sdmc:/_nds/TWiLightMenu/extras/updater/currentVersions.ini");
 		updateAvailable[0] = false;
 	}
+	rebootUpdater();
 	doneMsg();
 }
 

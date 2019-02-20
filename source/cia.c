@@ -1,7 +1,7 @@
 #include "cia.h"
 
 extern bool updatingSelf;
-
+AM_TitleEntry info;
 
 static Result CIA_LaunchTitle(u64 titleId, FS_MediaType mediaType) {
 	Result ret = 0;
@@ -72,7 +72,6 @@ Result installCia(const char * ciaPath)
 	u32 bytes;
 	Handle ciaHandle;
 	Handle fileHandle;
-	AM_TitleEntry info;
 	Result ret = 0;
 	
 	FS_MediaType media = MEDIATYPE_SD;
@@ -127,11 +126,18 @@ Result installCia(const char * ciaPath)
 		printf("Error in:\nFSFILE_Close\n");
 		return ret;
 	}
-
-	if (updatingSelf) {
-		if (R_FAILED(ret = CIA_LaunchTitle(info.titleID, MEDIATYPE_SD)))
-			return ret;
-	}
 	
+	return 0;
+}
+
+Result rebootUpdater() {
+	Result ret = 0;
+	Handle fileHandle;
+
+	FS_MediaType media = MEDIATYPE_SD;
+
+	if (R_FAILED(ret = CIA_LaunchTitle(info.titleID, MEDIATYPE_SD)))
+		return ret;
+
 	return 0;
 }
